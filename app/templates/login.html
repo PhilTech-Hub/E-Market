@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2>Login</h2>
+    <form method="POST" action="{{ url_for('auth.login') }}">
+      {{ form.hidden_tag() }}
+      
+      <div class="form-group">
+        <label for="username">Username</label>
+        {{ form.username(class="form-control", id="username") }}
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        {{ form.password(class="form-control", id="password") }}
+      </div>
+
+      <div class="form-group">
+        <label for="role">Login as:</label>
+        {{ form.role(class="form-control", id="role") }}
+        <small class="form-text text-muted">Choose your role (Buyer, Seller, or Admin).</small>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+  </div>
+{% endblock %}
