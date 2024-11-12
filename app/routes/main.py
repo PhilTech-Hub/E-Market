@@ -93,7 +93,7 @@ def edit_profile():
 # Seller Dashboard Route
 @main.route("/dashboard")
 @login_required
-def seller_dashboard():
+def user_dashboard():
     products = Product.query.filter_by(seller_id=current_user.id).all()
     return render_template("user_dashboard.html", products=products)
 
@@ -105,9 +105,6 @@ def add_product():
     form = ProductForm()
     if form.validate_on_submit():
         # Handle the image upload if there is an image
-        image_fn = None
-        if form.image.data:
-            image_fn = Product.save_image(form.image.data)
         product = Product(
             name=form.name.data,
             description=form.description.data,
@@ -115,7 +112,7 @@ def add_product():
             category=form.category.data,
             location=form.location.data,
             seller_id=current_user.id,
-            image_url=image_fn,  # Save the image filename to the product
+            image_url=form.image_url.data if form.image_url.data else 'default_product.png'
         )
         db.session.add(product)
         db.session.commit()
