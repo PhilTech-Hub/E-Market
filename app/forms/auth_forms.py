@@ -9,7 +9,7 @@ from wtforms.validators import DataRequired, Email, EqualTo
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    role = SelectField('Register as:', choices=[('buyer', 'Buyer'), ('seller', 'Seller'), ('admin', 'Admin')], validators=[DataRequired()])
+    # role = SelectField('Login as:', choices=[('buyer', 'Buyer'), ('seller', 'Seller'), ('admin', 'Admin')], validators=[DataRequired()])
     
     
 
@@ -22,4 +22,5 @@ class RegisterForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     location = StringField('Location')
     role = SelectField('Register as:', choices=[('buyer', 'Buyer'), ('seller', 'Seller'), ('admin', 'Admin')], validators=[DataRequired()])
+    gender = SelectField('Gender:', choices=[('male', 'Male'), ('female', 'Female'), ('rather_not_say', 'Rather Not Say')], validators=[DataRequired()])
     submit = SubmitField('Register')

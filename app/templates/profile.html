@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> <!-- Link to your custom CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header text-center">
+                <h2>{{ user.first_name }} Profile</h2>
+            </div>
+            <div>
+                Settings:
+            </div>
+            <div>
+                <a href="{{ url_for('main.seller_dashboard') }}" class="btn btn-primary mt-3">Dashboard</a>
+            </div>
+            <div class="card-body text-center">
+                <!-- Profile Image -->
+                <img src="{{ url_for('static', filename='uploads/' + (current_user.profile_image if current_user.profile_image else 'default_profile.png')) }}" 
+                     alt="Profile Picture" 
+                     class="rounded-circle mb-3"
+                     style="width: 150px; height: 150px; object-fit: cover;">
+
+                <!-- User Details -->
+                <h3>{{ user.username }}</h3>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Role:</strong> {{ user.role }}</p>
+
+                <!-- Edit Profile Button -->
+                <a href="{{ url_for('main.edit_profile') }}" class="btn btn-primary mt-3">Edit Profile</a>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

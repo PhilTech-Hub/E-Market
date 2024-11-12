@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ current_user.username }}</h1>
+    
+    <a href="{{ url_for('main.add_product') }}">Add New Product</a>
+    
+    <h2>Your Products</h2>
+    {% for product in current_user.seller_products %}
+        <div>
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.description }}</p>
+            <p><strong>Price:</strong> {{ product.price }}</p>
+            <p><strong>Category:</strong> {{ product.category }}</p>
+            <p><strong>Location:</strong> {{ product.location }}</p>
+            <p><small>Added on: {{ product.date_added.strftime('%Y-%m-%d') }}</small></p>
+
+            <!-- Display the product image -->
+            {% if product.image_url %}
+                <img src="{{ url_for('static', filename='images/' + product.image_url) }}" alt="{{ product.name }}" class="product-image">
+            {% endif %}
+        </div>
+    {% endfor %}
+</body>
+</html>

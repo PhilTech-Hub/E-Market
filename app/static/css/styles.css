@@ -1,0 +1,35 @@
+/* Basic styles for light and dark themes */
+.bg-light {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.t-color{
+    color: #f0f0f0;
+}
+.bg-dark {
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+/* Style for the theme toggle button */
+.btn-toggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.fas {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Optionally, you can add some transition effects */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+    
+}
+.main-height{
+    height: 100vh;
+}

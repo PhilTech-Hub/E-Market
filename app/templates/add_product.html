@@ -1,1 +1,44 @@
-This add product page
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <style>
+        /* Add some styles for the image to be rectangular */
+        .product-image {
+            width: 100%;
+            height: auto;
+            max-width: 300px;  /* You can adjust the width */
+            aspect-ratio: 16 / 9; /* Aspect ratio for a rectangular image */
+            object-fit: cover;  /* Ensure the image covers the area */
+        }
+    </style>
+</head>
+<body>
+    <h1>Add a New Product</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        
+        <label for="name">Product Name</label>
+        {{ form.name(class="form-control") }}
+        
+        <label for="description">Description</label>
+        {{ form.description(class="form-control") }}
+        
+        <label for="price">Price</label>
+        {{ form.price(class="form-control") }}
+        
+        <label for="category">Category</label>
+        {{ form.category(class="form-control") }}
+        
+        <label for="location">Location</label>
+        {{ form.location(class="form-control") }}
+        
+        <label for="image">Upload Product Image</label>
+        {{ form.image(class="form-control") }}
+        
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</body>
+</html>

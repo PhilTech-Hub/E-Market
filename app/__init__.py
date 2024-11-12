@@ -1,14 +1,15 @@
 # app/__init__.py
 import os
 from flask import Flask
+from flask_wtf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_migrate import Migrate  # Import Migrate
-from app.models import User # Import your User model
-from .routes import auth  # Make sure you don't accidentally import `register` here
+from config import Config
 
+# from app.routes.auth import auth  # Import the blueprint, not the module
 
 class Base(DeclarativeBase):
   pass
@@ -17,14 +18,18 @@ db = SQLAlchemy(model_class=Base)
 login_manager = LoginManager()
 mail = Mail()
 migrate = Migrate()  # Initialize Migrate
+db_path = os.path.join(os.getcwd(), 'instance', 'ecommerce.db')
+print(f"Database path: {db_path}")
 
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.getcwd(), 'instance', 'ecommerce.db')
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SECRET_KEY'] = 'your_secret_key'
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'adb9decb06425cc8149d7438be15a4bfd362728eb66d72059da0ac02013aee25')
     app.config['DEBUG'] = True  
-    app.register_blueprint(auth, url_prefix='/auth')  # Register the blueprint with a prefix if needed
+    app.config.from_object(Config)
+    csrf = CSRFProtect(app)  # Enable CSRF protection
+    # app.register_blueprint(auth, url_prefix='/auth')  # Register the blueprint with a prefix if needed
 
 
     # Initialize extensions
@@ -35,10 +40,17 @@ def create_app():
     
     
     
+    from app.models import User, Product, Sales, Admin  # Ensure models are imported
+    
+    # Import and register your blueprints after initializing the app
+    # from .routes.auth import auth
+    # app.register_blueprint(auth, url_prefix='/auth')
     
     # Import routes and models
     #from app.routes import main, auth
-    from .routes import register_routes
+    # from .routes.auth import register_routes
+    from app.routes import register_routes
+
     # Register routes
     register_routes(app)
     # app.register_blueprint(main)
@@ -59,3 +71,5 @@ def create_app():
 
 
     return app
+  
+  

@@ -1,7 +1,9 @@
 # models.py
-from app.db import db
+import os
+from app import db
 from flask_login import UserMixin
 
+from werkzeug.utils import secure_filename
 from datetime import datetime
 
 
@@ -17,32 +19,48 @@ class Product(db.Model):
     category = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(100), nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
+    image_url = db.Column(db.String(200), nullable=True)
     seller_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    # Correct the relationship by using a valid loading strategy
+    # Relationship to the User model
     seller = db.relationship('User', backref='seller_products', lazy='joined')
 
     def __repr__(self):
         return f'<Product {self.name}>'
+    
+    @staticmethod
+    def save_image(form_picture):
+        # Set the file path and ensure the filename is secure
+        picture_fn = secure_filename(form_picture.filename)
+        picture_path = os.path.join('static/images', picture_fn)
+        form_picture.save(picture_path)
+        return picture_fn
+
 
     
 # Base model for all user types (buyer, seller, admin)
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50), nullable=False)
     username = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
-    role = db.Column(db.String(50), nullable=False)  # 'buyer', 'seller', 'admin'
-    first_name = db.Column(db.String(50), nullable=False)
-    last_name = db.Column(db.String(50), nullable=False)
+    role = db.Column(db.String(50), nullable=False, default='user')  # 'buyer', 'seller', 'admin'
     location = db.Column(db.String(100))
+    gender = db.Column(db.String(100), nullable=True)
+    
+    # Add profile_image field to store the path of the profile image
+    profile_image = db.Column(db.String(200), nullable=True, default='default_profile.jpg')  # default image if none provided
+    
+    
 
-    # Relationship for sellers and buyers
-    products = db.relationship('Product', backref='owner', lazy=True)  # For sellers
-    sales = db.relationship('Sales', backref='buyer', lazy=True)  # For buyers
-    products = db.relationship('Product', foreign_keys=[Product.seller_id], lazy=True)
+    # Relationship for sellers
+    products = db.relationship('Product', backref='owner', lazy=True)
+
+    # Relationship for buyers
+    sales = db.relationship('Sales', backref='buyer', lazy=True)
 
     def __repr__(self):
         return f'<User {self.username}>'
