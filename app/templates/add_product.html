@@ -4,41 +4,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Product</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
-        /* Add some styles for the image to be rectangular */
-        .product-image {
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.5);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .modal {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
             width: 100%;
-            height: auto;
-            max-width: 300px;  /* You can adjust the width */
-            aspect-ratio: 16 / 9; /* Aspect ratio for a rectangular image */
-            object-fit: cover;  /* Ensure the image covers the area */
+            padding: 20px;
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-header h2 {
+            margin: 0;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="file"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .form-group input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .form-group .image-preview {
+            margin-top: 10px;
+            max-height: 150px;
+            width: auto;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <h1>Add a New Product</h1>
-    <form method="POST" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-        
-        <label for="name">Product Name</label>
-        {{ form.name(class="form-control") }}
-        
-        <label for="description">Description</label>
-        {{ form.description(class="form-control") }}
-        
-        <label for="price">Price</label>
-        {{ form.price(class="form-control") }}
-        
-        <label for="category">Category</label>
-        {{ form.category(class="form-control") }}
-        
-        <label for="location">Location</label>
-        {{ form.location(class="form-control") }}
-        
-        <label for="image">Upload Product Image</label>
-        {{ form.image(class="form-control") }}
-        
-        {{ form.submit(class="btn btn-primary") }}
-    </form>
+    <div class="modal">
+        <button class="close-btn" onclick="window.location.href='{{url_for('main.user_dashboard')}}'">&times;</button>
+        <div class="form-header">
+            <h2>Add a New Product</h2>
+        </div>
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            
+            <div class="form-group">
+                <label for="name">Product Name</label>
+                {{ form.name(class_='form-control') }}
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                {{ form.description(class_='form-control') }}
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price (KSH)</label>
+                {{ form.price(class_='form-control') }}
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                {{ form.category(class_='form-control') }}
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location</label>
+                {{ form.location(class_='form-control') }}
+            </div>
+
+            <div class="form-group">
+                <label for="image">Product Image</label>
+                {{ form.image(class_='form-control') }}
+                {% if image_url %}
+                    <img src="{{ url_for('static', filename='uploads/' + image_url) }}" alt="Product Image" class="image-preview">
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Add Product">
+            </div>
+        </form>
+    </div>
 </body>
 </html>

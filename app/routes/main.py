@@ -103,8 +103,22 @@ def user_dashboard():
 @login_required
 def add_product():
     form = ProductForm()
+    image_url = None  # Initialize image_url for template use
+
     if form.validate_on_submit():
-        # Handle the image upload if there is an image
+        # Check if an image was uploaded and handle it
+        if form.image.data:
+            image_file = form.image.data
+            image_filename = secure_filename(image_file.filename)
+            image_path = os.path.join(
+                current_app.root_path, "static/uploads", image_filename
+            )
+            image_file.save(image_path)
+            image_url = image_filename  # Set the image URL to the saved filename
+        else:
+            image_url = "default_product.png"  # Fallback if no image is provided
+
+        # Create and save the new product
         product = Product(
             name=form.name.data,
             description=form.description.data,
@@ -112,12 +126,13 @@ def add_product():
             category=form.category.data,
             location=form.location.data,
             seller_id=current_user.id,
-            image_url=form.image_url.data if form.image_url.data else 'default_product.png'
+            image_url=image_url,
         )
         db.session.add(product)
         db.session.commit()
         return redirect(url_for("main.user_dashboard"))
-    return render_template("add_product.html", form=form)
+
+    return render_template("add_product.html", form=form, image_url=image_url)
 
 
 # Edit Product Route
