@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_user, login_required, logout_user
 from app.models import User
 from app.forms import RegisterForm, LoginForm
+
 from flask_bcrypt import Bcrypt
 from app import db, create_app
 import time
@@ -22,7 +23,7 @@ app = create_app
 def register_user():
     form = RegisterForm()
     if form.validate_on_submit():
-        # Check if the email already exists in the database
+        # Check if the email already exists in the databasee
         existing_user = User.query.filter_by(email=form.email.data).first()
         if existing_user:
             flash(
@@ -33,7 +34,8 @@ def register_user():
                 url_for("auth.register_user")
             )  # Redirect back to registration page
 
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
+        hashed_password = bcrypt.generate_password_hash(form.password.data)
+
         user = User(
             first_name=form.first_name.data,
             last_name=form.last_name.data,
@@ -82,7 +84,9 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         # Fetch the user object based on username
-        user = User.query.filter((User.username==form.username.data)| (User.email == form.username.data)).first()
+        user = User.query.filter(
+            (User.username == form.username.data) | (User.email == form.username.data)
+        ).first()
 
         # Check if user exists and password matches
         if user and bcrypt.check_password_hash(user.password, form.password.data):
@@ -103,3 +107,4 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for("auth.login"))
+    

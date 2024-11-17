@@ -8,6 +8,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_migrate import Migrate  # Import Migrate
 from config import Config
+from flask_bcrypt import Bcrypt
 
 # from app.routes.auth import auth  # Import the blueprint, not the module
 
@@ -37,6 +38,7 @@ def create_app():
     login_manager.init_app(app)
     mail.init_app(app)
     migrate.init_app(app, db)  # Initialize Migrate with app and db
+    bcrypt = Bcrypt(app)
     
     
     
