@@ -4,6 +4,8 @@ from app.models import User
 from app.forms import RegisterForm, LoginForm
 from flask_bcrypt import Bcrypt
 from app import db, create_app
+import time
+from sqlalchemy.exc import OperationalError, PendingRollbackError
 
 
 # Initialize the Blueprint for authentication
@@ -30,9 +32,8 @@ def register_user():
             return redirect(
                 url_for("auth.register_user")
             )  # Redirect back to registration page
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode(
-            "utf-8"
-        )
+
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
         user = User(
             first_name=form.first_name.data,
             last_name=form.last_name.data,
@@ -44,12 +45,33 @@ def register_user():
             gender=form.gender.data,
         )
         db.session.add(user)
-        db.session.commit()
-        flash("Account created successfully!", "success")
-        return redirect(url_for("auth.login"))
+
+        # Retry logic for committing to the database
+        attempts = 0
+        max_attempts = 5
+        while attempts < max_attempts:
+            try:
+                db.session.commit()
+                flash("Account created successfully!", "success")
+                return redirect(url_for("auth.login"))
+            except OperationalError:
+                db.session.rollback()
+                attempts += 1
+                time.sleep(1)  # Wait for 1 second before retrying
+                if attempts == max_attempts:
+                    flash(
+                        "A database error occurred. Please try again later.", "danger"
+                    )
+                    return redirect(url_for("auth.register_user"))
+            except PendingRollbackError:
+                db.session.rollback()
+                flash("A transaction error occurred. Please try again.", "danger")
+                return redirect(url_for("auth.register_user"))
+
     else:
         print("Form validation failed")
         print(form.errors)  # Print form errors for debugging
+
     return render_template("register.html", form=form)
 
 
@@ -60,7 +82,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         # Fetch the user object based on username
-        user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.filter((User.username==form.username.data)| (User.email == form.username.data)).first()
 
         # Check if user exists and password matches
         if user and bcrypt.check_password_hash(user.password, form.password.data):
