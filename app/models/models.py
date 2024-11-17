@@ -52,7 +52,7 @@ class User(db.Model, UserMixin):
 
     # Add profile_image field to store the path of the profile image
     profile_image = db.Column(
-        db.String(200), nullable=True, default="default_profile.jpg"
+        db.String(200), nullable=True, default="default_profile.png"
     )  # default image if none provided
 
     # Relationship for sellers
@@ -99,7 +99,6 @@ class User(db.Model, UserMixin):
             "view_sales_reports": self.is_seller,  # Only sellers
         }
         return permissions.get(permission_name, False)
-
 
 
 # Model for Sales (tracks purchases)

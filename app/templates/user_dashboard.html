@@ -52,52 +52,68 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="items">
-            <a href="{{ url_for('main.home') }}">
-                <h3>E-Market</h3>
-            </a>
+            <div>
+                <a href="{{ url_for('main.home') }}">
+                    <h3>E-Market</h3>
+                </a>
+            </div>
 
-            {% if current_user.is_authenticated %}
-            <!-- Overview link visible for all authenticated users -->
-            <a href="#">Overview</a>
+            <div style="text-decoration: underline; font-weight: bold; padding: 20px; padding-bottom: 30px;">
+                {% if current_user.is_seller() %}
+                <span >Seller
+                    Dashboard</span>
+                {% elif current_user.is_admin() %}
+                <span >Admin Dashboard</span>
+                {% else %}
+                <span >Buyer Dashboard</span>
+                {% endif %}
+            </div>
 
-            <!-- Settings link visible to admins or users with 'view_settings' permission -->
-            {% if current_user.is_admin() or current_user.has_permission('view_settings') %}
-            <a href="#">Settings</a>
-            {% endif %}
+            <div>
+                {% if current_user.is_authenticated %}
+                <!-- Overview link visible for all authenticated users -->
+                <a href="#">Overview</a>
 
-            <!-- Orders link visible to admins or non-sellers with 'view_orders' permission -->
-            {% if current_user.is_admin() or (not current_user.is_seller() and
-            current_user.has_permission('view_orders')) %}
-            <a href="#">Orders</a>
-            {% endif %}
+                <!-- Settings link visible to admins or users with 'view_settings' permission -->
+                {% if current_user.is_admin() or current_user.has_permission('view_settings') %}
+                <a href="#">Settings</a>
+                {% endif %}
 
-            <!-- Product List link visible to admins or non-sellers with 'view_product_list' permission -->
-            {% if current_user.is_admin() or (not current_user.is_seller() and
-            current_user.has_permission('view_product_list')) %}
-            <a href="#">Product List</a>
-            {% endif %}
+                <!-- Orders link visible to admins or non-sellers with 'view_orders' permission -->
+                {% if current_user.is_admin() or (not current_user.is_seller() and
+                current_user.has_permission('view_orders')) %}
+                <a href="#">Orders</a>
+                {% endif %}
 
-            <!-- Profile link visible to admins or users with 'view_profile' permission -->
-            {% if current_user.is_admin() or current_user.has_permission('view_profile') %}
-            <a href="#">Profile</a>
-            {% endif %}
+                <!-- Product List link visible to admins or non-sellers with 'view_product_list' permission -->
+                {% if current_user.is_admin() or (not current_user.is_seller() and
+                current_user.has_permission('view_product_list')) %}
+                <a href="#">Product List</a>
+                {% endif %}
 
-            <!-- Product Management link visible to admins or users with 'manage_products' permission -->
-            {% if current_user.is_admin() or (not current_user.is_buyer() and
-            current_user.has_permission('manage_products')) %}
-            <a href="#">Product Management</a>
-            {% endif %}
+                <!-- Profile link visible to admins or users with 'view_profile' permission -->
+                {% if current_user.is_admin() or current_user.has_permission('view_profile') %}
+                <a href="#">Profile</a>
+                {% endif %}
 
-            <!-- Sales Reports link visible to admins or users with 'view_sales_reports' permission -->
-            {% if current_user.is_admin() or (not current_user.is_buyer() and
-            current_user.has_permission('view_sales_reports')) %}
-            <a href="#">Sales Reports</a>
-            {% endif %}
-            <!-- manage users -->
-            {% if current_user.is_admin() %}
+                <!-- Product Management link visible to admins or users with 'manage_products' permission -->
+                {% if current_user.is_admin() or (not current_user.is_buyer() and
+                current_user.has_permission('manage_products')) %}
+                <a href="#">Product Management</a>
+                {% endif %}
+
+                <!-- Sales Reports link visible to admins or users with 'view_sales_reports' permission -->
+                {% if current_user.is_admin() or (not current_user.is_buyer() and
+                current_user.has_permission('view_sales_reports')) %}
+                <a href="#">Sales Reports</a>
+                {% endif %}
+                <!-- manage users -->
+                {% if current_user.is_admin() %}
                 <a href="#">Manage Users</a>
                 {% endif %}
-            {% endif %}
+
+                {% endif %}
+            </div>
         </div>
     </div>
 
@@ -110,7 +126,7 @@
         {% if current_user.is_seller() %}
         <h2>Your Products</h2>
         <a href="{{ url_for('main.add_product') }}"><button>Add Product</button></a>
-        {% endif %}
+
         {% for product in current_user.seller_products %}
         <div class="product">
             <h3>{{ product.name }}</h3>
@@ -132,6 +148,11 @@
 
         </div>
         {% endfor %}
+        {% elif current_user.is_admin() %}
+        <span style="text-decoration: underline; font-weight: bold;">Admin Dashboard</span>
+        {% else %}
+        <span style="text-decoration: underline; font-weight: bold; ">Buyer Dashboard</span>
+        {% endif %}
     </div>
 
     <!-- JavaScript for toggling sidebar -->
