@@ -90,7 +90,7 @@
                 <!-- Product List link visible to admins or non-sellers with 'view_product_list' permission -->
                 {% if current_user.is_admin() or (not current_user.is_seller() and
                 current_user.has_permission('view_product_list')) %}
-                <a href="#">Product List</a>
+                <a href="{{ url_for('main.browse_products') }}">Product List</a>
                 {% endif %}
 
                 <!-- Profile link visible to admins or users with 'view_profile' permission -->
@@ -154,7 +154,7 @@
         <span style="text-decoration: underline; font-weight: bold;">Admin Dashboard</span>
         {% else %}
         <h4>Pick an Item,</h4>
-        
+        {% endif %}
 
     <!-- JavaScript for toggling sidebar -->
     <script>

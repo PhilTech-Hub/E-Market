@@ -17,7 +17,7 @@ class Product(db.Model):
     category = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(100), nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    image_url = db.Column(db.String(200), nullable=True)
+    image = db.Column(db.String(200), default='default_product.png')  # Default image
     seller_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     # Relationship to the User model

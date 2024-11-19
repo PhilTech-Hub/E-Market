@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Products</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='buyer_styles.css') }}">
 </head>
 <body>
     <div class="container">
@@ -34,10 +34,23 @@
         <div class="product-grid">
             {% for product in products %}
             <div class="product-card">
-                <img src="{{ url_for('static', filename='uploads/' + product.image) }}" alt="{{ product.name }}">
-                <h3>{{ product.name }}</h3>
-                <p>{{ product.price }} KES</p>
-                <p>{{ product.category }}</p>
+                <img src="{{ url_for('static', filename='uploads/' + (product.image or 'default_product.png')) }}" alt="{{ product.name }}">
+
+                <h3>Name: {{ product.name }}</h3>
+                <p>Price: KES{{ product.price }} </p>
+                <p>Category: {{ product.category }}</p>
+                <div class="actions">
+                    <form action="{{ url_for('main.add_to_cart', product_id=product.id) }}" method="POST">
+                        {{ form.hidden_tag() }}
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                    
+                    <form method="POST" action="{{ url_for('main.add_to_wishlist', product_id=product.id) }}">
+                        {{ form.hidden_tag() }}
+                        <button type="submit" class="btn btn-primary">Add to WishList</button>
+                    </form>
+                    
+                </div>
                 <a href="{{ url_for('main.product_details', product_id=product.id) }}">View Details</a>
             </div>
             {% else %}

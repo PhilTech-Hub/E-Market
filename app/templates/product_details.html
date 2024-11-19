@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - Product Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Breadcrumb navigation -->
+        <nav class="breadcrumb">
+            <a href="{{ url_for('main.home') }}">Home</a> &gt;
+            <span>{{ product.name }}</span>
+        </nav>
+
+        <!-- Product Details Section -->
+        <div class="product-details">
+            <div class="product-image">
+                <img src="{{ url_for('static', filename='uploads/' ~ product.image) }}" 
+                    alt="{{ product.name }}" >
+            </div>
+            <div class="product-info">
+                <h1>{{ product.name }}</h1>
+                <p class="price">Ksh {{ product.price }}</p>
+                <p class="description">{{ product.description }}</p>
+
+                
+            </div>
+        </div>
+
+        <!-- Additional Product Information -->
+        <div class="additional-info">
+            <h2>Specifications</h2>
+            <ul>
+                <li>Category: {{ product.category }}</li>
+                <li>Stock: {{ product.stock }} available</li>
+                <li>Seller: {{ product.seller.first_name + product.seller.last_name }}</li>
+                <li>Market: {{ product.location }} </li>
+            </ul>
+        </div>
+        
+
+        <!-- Reviews Section -->
+        <div class="reviews">
+            <h2>Customer Reviews</h2>
+            {% if product.reviews %}
+                <ul>
+                    {% for review in product.reviews %}
+                        <li>
+                            <strong>{{ review.user.username }}:</strong> 
+                            {{ review.text }} 
+                            <span class="rating">Rating: {{ review.rating }} / 5</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No reviews yet. Be the first to review this product!</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

@@ -42,3 +42,42 @@
     margin: 0 5px;
     text-decoration: none;
 }
+
+
+/* CSS FOR PRODUCTS */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.product-details {
+    display: flex;
+    gap: 20px;
+}
+.product-image img {
+    max-width: 400px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.product-info {
+    flex: 1;
+}
+.price {
+    font-size: 1.5em;
+    color: #28a745;
+    margin: 10px 0;
+}
+.actions {
+    margin-top: 20px;
+}
+.actions .btn {
+    margin-right: 10px;
+}
+.reviews ul {
+    list-style-type: none;
+    padding: 0;
+}
+.reviews li {
+    margin-bottom: 10px;
+}

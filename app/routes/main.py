@@ -243,3 +243,20 @@ def browse_products():
     categories = [cat[0] for cat in categories]
 
     return render_template('browse_products.html', products=products, categories=categories)
+
+@main.route('/product/<int:product_id>')
+def product_details(product_id):
+    product = Product.query.get_or_404(product_id)
+    return render_template('product_details.html', product=product)
+
+@main.route('/add_to_cart/<int:product_id>', methods=['POST'])
+def add_to_cart(product_id):
+    # Add the product to the user's cart
+    flash('Product added to cart!', 'success')
+    return redirect(url_for('main.product_details', product_id=product_id))
+
+@main.route('/add_to_wishlist/<int:product_id>', methods=['POST'])
+def add_to_wishlist(product_id):
+    # Add the product to the user's wishlist
+    flash('Product added to wishlist!', 'success')
+    return redirect(url_for('main.product_details', product_id=product_id))
