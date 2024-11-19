@@ -7,6 +7,8 @@
     <title>User Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buyer_styles.css') }}">
+
 </head>
 
 <body>
@@ -60,12 +62,12 @@
 
             <div style="text-decoration: underline; font-weight: bold; padding: 20px; padding-bottom: 30px;">
                 {% if current_user.is_seller() %}
-                <span >Seller
+                <span>Seller
                     Dashboard</span>
                 {% elif current_user.is_admin() %}
-                <span >Admin Dashboard</span>
+                <span>Admin Dashboard</span>
                 {% else %}
-                <span >Buyer Dashboard</span>
+                <span>Buyer Dashboard</span>
                 {% endif %}
             </div>
 
@@ -121,7 +123,7 @@
 
     <!-- Content -->
     <div class="content">
-        <h1>Welcome, {{ current_user.username }}</h1>
+        <h1>Hello, {{ current_user.first_name }}.</h1>
 
         {% if current_user.is_seller() %}
         <h2>Your Products</h2>
@@ -151,9 +153,8 @@
         {% elif current_user.is_admin() %}
         <span style="text-decoration: underline; font-weight: bold;">Admin Dashboard</span>
         {% else %}
-        <span style="text-decoration: underline; font-weight: bold; ">Buyer Dashboard</span>
-        {% endif %}
-    </div>
+        <h4>Pick an Item,</h4>
+        
 
     <!-- JavaScript for toggling sidebar -->
     <script>

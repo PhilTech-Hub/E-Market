@@ -1,0 +1,44 @@
+
+/* CSS FOR BUYERS */
+/* styles.css */
+.container {
+    width: 90%;
+    margin: auto;
+}
+
+.filter-bar {
+    margin-bottom: 20px;
+}
+
+.filter-bar form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.product-card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    text-align: center;
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+}

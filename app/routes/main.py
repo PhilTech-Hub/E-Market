@@ -215,3 +215,31 @@ def pay_product(product_id):
 
 
 # You can add more routes for your main blueprint here
+
+@main.route('/browse_products')
+def browse_products():
+    page = request.args.get('page', 1, type=int)
+    search = request.args.get('search', '')
+    category = request.args.get('category', '')
+    sort_by = request.args.get('sort_by', '')
+
+    # Query products
+    query = Product.query
+
+    if search:
+        query = query.filter(Product.name.ilike(f"%{search}%"))
+
+    if category:
+        query = query.filter_by(category=category)
+
+    if sort_by == 'price_asc':
+        query = query.order_by(Product.price.asc())
+    elif sort_by == 'price_desc':
+        query = query.order_by(Product.price.desc())
+
+    products = query.paginate(page=page, per_page=10)
+
+    categories = Product.query.with_entities(Product.category.distinct()).all()
+    categories = [cat[0] for cat in categories]
+
+    return render_template('browse_products.html', products=products, categories=categories)

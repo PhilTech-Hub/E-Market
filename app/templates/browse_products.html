@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Products</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Browse Products</h1>
+
+        <!-- Search and Filter Section -->
+        <div class="filter-bar">
+            <form method="GET" action="{{ url_for('main.browse_products') }}">
+                <input type="text" name="search" placeholder="Search products..." value="{{ request.args.get('search', '') }}">
+                <select name="category">
+                    <option value="">All Categories</option>
+                    <!-- Add categories dynamically -->
+                    {% for category in categories %}
+                        <option value="{{ category }}" {% if request.args.get('category') == category %}selected{% endif %}>{{ category }}</option>
+                    {% endfor %}
+                </select>
+                <select name="sort_by">
+                    <option value="">Sort By</option>
+                    <option value="price_asc" {% if request.args.get('sort_by') == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+                    <option value="price_desc" {% if request.args.get('sort_by') == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+                </select>
+                <button type="submit">Apply</button>
+            </form>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <img src="{{ url_for('static', filename='uploads/' + product.image) }}" alt="{{ product.name }}">
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.price }} KES</p>
+                <p>{{ product.category }}</p>
+                <a href="{{ url_for('main.product_details', product_id=product.id) }}">View Details</a>
+            </div>
+            {% else %}
+            <p>No products found.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            {% if products.has_prev %}
+                <a href="{{ url_for('main.browse_products', page=products.prev_num, **request.args) }}">&laquo; Previous</a>
+            {% endif %}
+            <span>Page {{ products.page }} of {{ products.pages }}</span>
+            {% if products.has_next %}
+                <a href="{{ url_for('main.browse_products', page=products.next_num, **request.args) }}">Next &raquo;</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
