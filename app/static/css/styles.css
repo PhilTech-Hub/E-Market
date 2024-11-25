@@ -60,6 +60,10 @@
     color: #f0f0f0;
 }
 
+.cl-blue{
+    color: rgb(10, 53, 241);
+}
+
 
 /* Background fading effect */
 body {
@@ -71,9 +75,10 @@ body {
 }
 
 .background-section {
-    height: 500px; /* Set the desired height for the background image */
+    height: 300px; /* Set the desired height for the background image */
     background: url('/static/images/default_product.png') no-repeat center center;
     background-size: cover; /* Ensures the image scales nicely */
+    background-position: 20% 5%; /* Adjust to show the desired part of the image */
 }
 
 /* 
@@ -87,12 +92,16 @@ body {
 /* Call to action section */
 .cta {
     position: relative;
-    top: 20%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
     text-align: center;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+    font-family:'Times New Roman', Times, serif;    /* text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); */
+    background-color: rgba(15, 71, 226, 0.5);
+    height: fit-content;
+    padding: 2%;
+    border-radius: 15px;
 }
 
 .cta h1 {
