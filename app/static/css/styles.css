@@ -1,27 +1,49 @@
 /* Navbar Styles */
 .navbar {
-    background-color: rgb(16, 49, 194) !important; /* Set navbar background to blue */
-    border-bottom: 3px solid #e28205 !important; /* Add 2px solid orange bottom border */
-  }
-  
-  /* Optional: Adjust the navbar color scheme for text and icons */
-  .navbar-dark .navbar-nav .nav-link {
-    color: white !important; /* White text for navbar links in dark theme */
-  }
-  
-  .navbar-dark .navbar-brand {
-    color: white !important; /* White color for the brand */
-  }
-  
-  .navbar-toggler-icon {
-    background-color: white; /* White icon for the toggler */
-  }
-  
-  /* Theme toggle button color adjustment if necessary */
-  #theme-toggle {
-    color: white; /* Ensure the toggle button is visible on dark background */
-  }
-  
+    background-color: rgb(16, 49, 194) !important;
+    /* Set navbar background to blue */
+    border-bottom: 3px solid #e28205 !important;
+    /* Add 2px solid orange bottom border */
+    position: fixed;
+    width: 100%;
+    top: 0%;
+}
+
+/* Optional: Adjust the navbar color scheme for text and icons */
+.navbar-dark .navbar-nav .nav-link {
+    color: white !important;
+    /* White text for navbar links in dark theme */
+}
+
+.navbar-dark .navbar-brand {
+    color: white !important;
+    /* White color for the brand */
+}
+
+.navbar-toggler-icon {
+    background-color: white;
+    /* White icon for the toggler */
+}
+
+/* Theme toggle button color adjustment if necessary */
+#theme-toggle {
+    color: white;
+    /* Ensure the toggle button is visible on dark background */
+}
+
+/* Initially set opacity to 1, making the body content fully visible */
+.fade-on-scroll {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    /* Smooth fade transition */
+}
+
+/* Apply fade-out effect when content reaches the navbar */
+.fade-out {
+    opacity: 0.5;
+    /* Adjust to desired fading level */
+}
+
 
 /* Basic styles for light and dark themes */
 .bg-light {
@@ -29,9 +51,10 @@
     color: #333;
 }
 
-.t-color{
+.t-color {
     color: #f0f0f0;
 }
+
 .bg-dark {
     background-color: #333;
     color: #f0f0f0;
@@ -43,20 +66,26 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: url('/static/images/Dagoreti.jpg') no-repeat center center fixed;
-    background-size: cover;
-    animation: fadeBackground 15s infinite;
-  }
+    height: 100%; /* Ensures the body has a height */
+    background-color: #f4f4f4; /* Fallback color for when the image isn't loaded */
+}
 
+.background-section {
+    height: 500px; /* Set the desired height for the background image */
+    background: url('/static/images/default_product.png') no-repeat center center;
+    background-size: cover; /* Ensures the image scales nicely */
+}
+
+/* 
   @keyframes fadeBackground {
     0% { background: url('/static/images/Dagoreti.jpg') no-repeat center center fixed; }
     33% { background: url('/static/images/Homabay.jfif') no-repeat center center fixed; }
     66% { background: url('/static/images/Kangundo.jfif') no-repeat center center fixed; }
     100% { background: url('/static/images/Lake2.jfif') no-repeat center center fixed; }
-  }
+  } */
 
-  /* Call to action section */
-  .cta {
+/* Call to action section */
+.cta {
     position: relative;
     top: 20%;
     left: 50%;
@@ -64,19 +93,19 @@ body {
     color: white;
     text-align: center;
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
-  }
+}
 
-  .cta h1 {
+.cta h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
-  }
+}
 
-  .cta p {
+.cta p {
     font-size: 1.2rem;
     margin-bottom: 2rem;
-  }
+}
 
-  .cta a {
+.cta a {
     display: inline-block;
     background-color: #e28205;
     color: white;
@@ -85,32 +114,32 @@ body {
     text-decoration: none;
     font-weight: bold;
     transition: background-color 0.3s ease;
-  }
+}
 
-  .cta a:hover {
+.cta a:hover {
     background-color: #f07408;
-  }
+}
 
-  /* Search bar */
-  .search-bar {
+/* Search bar */
+.search-bar {
     position: relative;
-    top: 10%;
+    top: 15%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 50%;
     display: flex;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
-  }
+}
 
-  .search-bar input[type="text"] {
+.search-bar input[type="text"] {
     width: 100%;
     padding: 10px;
     font-size: 1rem;
     border: none;
     border-radius: 5px;
-  }
+}
 
-  .search-bar button {
+.search-bar button {
     position: relative;
     top: -50%;
     left: 105%;
@@ -121,49 +150,49 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
+}
 
-  .search-bar button:hover {
+.search-bar button:hover {
     background-color: #f07408;
-  }
+}
 
-  /* Testimonials section */
-  .testimonials {
+/* Testimonials section */
+.testimonials {
     margin: 2rem auto;
     width: 80%;
     overflow: hidden;
     position: relative;
     top: 700px;
 
-  }
+}
 
-  .testimonial-slider {
+.testimonial-slider {
     display: flex;
     transition: transform 0.5s ease;
-  }
+}
 
-  .testimonial {
+.testimonial {
     flex: 1 0 100%;
     text-align: center;
     padding: 2rem;
-  }
+}
 
-  .testimonial p {
+.testimonial p {
     font-size: 1.2rem;
     font-style: italic;
-  }
+}
 
-  .testimonial .author {
+.testimonial .author {
     font-weight: bold;
     margin-top: 1rem;
-  }
+}
 
-  .slider-dots {
+.slider-dots {
     text-align: center;
     margin-top: 1rem;
-  }
+}
 
-  .slider-dots span {
+.slider-dots span {
     display: inline-block;
     width: 10px;
     height: 10px;
@@ -171,26 +200,26 @@ body {
     background-color: #ddd;
     border-radius: 50%;
     cursor: pointer;
-  }
+}
 
-  .slider-dots span.active {
+.slider-dots span.active {
     background-color: #f39c12;
-  }
+}
 
-  .slider-arrows {
+.slider-arrows {
     position: absolute;
     top: 50%;
     width: 100%;
     display: flex;
     justify-content: space-between;
     transform: translateY(-50%);
-  }
+}
 
-  .slider-arrows .arrow {
+.slider-arrows .arrow {
     font-size: 2rem;
     color: #f39c12;
     cursor: pointer;
-  }
+}
 
 /* Style for the theme toggle button */
 .btn-toggle {
@@ -207,10 +236,6 @@ body {
 
 /* Optionally, you can add some transition effects */
 
-.main-height{
+.main-height {
     height: 100vh;
 }
-
-
-
-

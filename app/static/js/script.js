@@ -75,3 +75,18 @@ document.addEventListener('DOMContentLoaded', function () {
     changeSlide(currentSlide);
   }
 
+  //JS code of fading contents before reaching navbar
+    $(document).ready(function() {
+      var navbarHeight = $('.navbar').outerHeight();  // Get the height of the navbar
+      $(window).scroll(function() {
+        var scrollPosition = $(window).scrollTop();  // Get the scroll position
+        
+        // If the scroll position is greater than the navbar height, add the fade-out class
+        if (scrollPosition > navbarHeight) {
+          $('.fade-on-scroll').addClass('fade-out');
+        } else {
+          $('.fade-on-scroll').removeClass('fade-out');
+        }
+      });
+    });
+ 
