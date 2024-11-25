@@ -51,3 +51,27 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+  // Testimonial Slider JavaScript
+  let currentSlide = 0;
+
+  function changeSlide(index) {
+    const slider = document.querySelector('.testimonial-slider');
+    const dots = document.querySelectorAll('.slider-dots .dot');
+    currentSlide = index;
+    slider.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[index].classList.add('active');
+  }
+
+  function nextSlide() {
+    const totalSlides = document.querySelectorAll('.testimonial').length;
+    currentSlide = (currentSlide + 1) % totalSlides;
+    changeSlide(currentSlide);
+  }
+
+  function prevSlide() {
+    const totalSlides = document.querySelectorAll('.testimonial').length;
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    changeSlide(currentSlide);
+  }
+

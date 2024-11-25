@@ -1,6 +1,48 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Welcome to E-Market</h1>
+
+
+<!-- Search Bar -->
+<div class="search-bar">
+    <form method="GET" action="/search"> <!-- Replace "/search" with your actual route -->
+        <input type="text" name="q" placeholder="Search for products or sellers...">
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<!-- Call to Action and Background -->
+<div class="cta">
+    <h1>Welcome to E-Market</h1>
+    <p>Find the best products from trusted sellers worldwide.</p>
+    <a href="#products">Start Shopping</a>
+</div>
+
+<!-- Testimonials Section -->
+<div class="testimonials">
+    <div class="testimonial-slider">
+        <div class="testimonial">
+            <p>"This platform is amazing! I found exactly what I was looking for."</p>
+            <span class="author">- Jane Doe</span>
+        </div>
+        <div class="testimonial">
+            <p>"The customer service was top-notch. Highly recommended!"</p>
+            <span class="author">- John Smith</span>
+        </div>
+        <div class="testimonial">
+            <p>"A wide variety of products and fast delivery!"</p>
+            <span class="author">- Mary Johnson</span>
+        </div>
+    </div>
+    <div class="slider-dots">
+        <span class="dot active" onclick="changeSlide(0)"></span>
+        <span class="dot" onclick="changeSlide(1)"></span>
+        <span class="dot" onclick="changeSlide(2)"></span>
+    </div>
+    <div class="slider-arrows">
+        <span class="arrow" onclick="prevSlide()">&#8249;</span>
+        <span class="arrow" onclick="nextSlide()">&#8250;</span>
+    </div>
+</div>
+
+
 {% endblock %}
-
-

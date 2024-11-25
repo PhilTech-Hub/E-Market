@@ -1,3 +1,28 @@
+/* Navbar Styles */
+.navbar {
+    background-color: rgb(16, 49, 194) !important; /* Set navbar background to blue */
+    border-bottom: 3px solid #e28205 !important; /* Add 2px solid orange bottom border */
+  }
+  
+  /* Optional: Adjust the navbar color scheme for text and icons */
+  .navbar-dark .navbar-nav .nav-link {
+    color: white !important; /* White text for navbar links in dark theme */
+  }
+  
+  .navbar-dark .navbar-brand {
+    color: white !important; /* White color for the brand */
+  }
+  
+  .navbar-toggler-icon {
+    background-color: white; /* White icon for the toggler */
+  }
+  
+  /* Theme toggle button color adjustment if necessary */
+  #theme-toggle {
+    color: white; /* Ensure the toggle button is visible on dark background */
+  }
+  
+
 /* Basic styles for light and dark themes */
 .bg-light {
     background-color: #f0f0f0;
@@ -11,6 +36,161 @@
     background-color: #333;
     color: #f0f0f0;
 }
+
+
+/* Background fading effect */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('/static/images/Dagoreti.jpg') no-repeat center center fixed;
+    background-size: cover;
+    animation: fadeBackground 15s infinite;
+  }
+
+  @keyframes fadeBackground {
+    0% { background: url('/static/images/Dagoreti.jpg') no-repeat center center fixed; }
+    33% { background: url('/static/images/Homabay.jfif') no-repeat center center fixed; }
+    66% { background: url('/static/images/Kangundo.jfif') no-repeat center center fixed; }
+    100% { background: url('/static/images/Lake2.jfif') no-repeat center center fixed; }
+  }
+
+  /* Call to action section */
+  .cta {
+    position: relative;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+  }
+
+  .cta h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .cta a {
+    display: inline-block;
+    background-color: #e28205;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
+  .cta a:hover {
+    background-color: #f07408;
+  }
+
+  /* Search bar */
+  .search-bar {
+    position: relative;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    display: flex;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .search-bar input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .search-bar button {
+    position: relative;
+    top: -50%;
+    left: 105%;
+    padding: 10px 20px;
+    background-color: #e28205;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .search-bar button:hover {
+    background-color: #f07408;
+  }
+
+  /* Testimonials section */
+  .testimonials {
+    margin: 2rem auto;
+    width: 80%;
+    overflow: hidden;
+    position: relative;
+    top: 700px;
+
+  }
+
+  .testimonial-slider {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .testimonial {
+    flex: 1 0 100%;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .testimonial p {
+    font-size: 1.2rem;
+    font-style: italic;
+  }
+
+  .testimonial .author {
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+
+  .slider-dots {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .slider-dots span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .slider-dots span.active {
+    background-color: #f39c12;
+  }
+
+  .slider-arrows {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+  }
+
+  .slider-arrows .arrow {
+    font-size: 2rem;
+    color: #f39c12;
+    cursor: pointer;
+  }
 
 /* Style for the theme toggle button */
 .btn-toggle {
@@ -26,10 +206,7 @@
 }
 
 /* Optionally, you can add some transition effects */
-body {
-    transition: background-color 0.3s ease, color 0.3s ease;
-    
-}
+
 .main-height{
     height: 100vh;
 }
