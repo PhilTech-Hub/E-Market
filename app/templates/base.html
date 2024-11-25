@@ -18,7 +18,8 @@
   <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
       <!-- Logo and Home Link -->
-      <a class="navbar-brand" href="{{ url_for('main.home') }}">E-Market</a>
+      <a class="navbar-brand" href="{{ url_for('main.home') }}"> <img
+          src="{{ url_for('static', filename='images/Logo1.png') }}" alt="E-Market Logo" style="height: 40px; "> E-Market </a>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,7 +46,8 @@
           <!-- Profile Image with Link -->
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('main.profile') }}">
-              <img src="{{ url_for('static', filename='uploads/' + (current_user.profile_image if current_user.profile_image else 'default_profile.png')) }}"
+              <img
+                src="{{ url_for('static', filename='uploads/' + (current_user.profile_image if current_user.profile_image else 'default_profile.png')) }}"
                 alt="Profile" class="rounded-circle" style="width: 30px; height: 30px; margin-right: 5px;">
               Profile
             </a>
@@ -98,12 +100,12 @@
   </footer>
 
   <!-- Bootstrap JS and dependencies -->
- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <!-- Your custom script -->
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-  
+
   <script>
     console.log("Script loaded.");
   </script>

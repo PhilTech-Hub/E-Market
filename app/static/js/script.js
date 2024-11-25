@@ -89,7 +89,7 @@ $(document).ready(function () {
 document.addEventListener("DOMContentLoaded", function () {
   const headingText = "Welcome to E-Market"; // Passed dynamically from Flask
   const subheadingText = "Find the best products from trusted sellers worldwide."; // Passed dynamically from Flask
-  const typingSpeed = 100; // Speed in milliseconds
+  const typingSpeed = 75; // Speed in milliseconds
 
   // Typing function
   function typeEffect(element, text, callback) {
