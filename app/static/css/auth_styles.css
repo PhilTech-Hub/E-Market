@@ -1,0 +1,342 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color: #666970;
+}
+.navbar{
+    background-color: rgb(16, 49, 194) ;
+    height: fit-content;
+    padding-bottom: 15px;
+}
+
+.navbar .nav-container{
+    position: relative;
+    left: 50px;
+    top: 15px;
+    color:aliceblue;
+    width: 90%;
+}
+
+.navbar .nav-container .navbar-brand{
+    position:relative;
+    top: -21px;
+    left: 20px;
+    color: aliceblue;
+    text-decoration: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+
+.main-container{
+    position: relative;
+    top: -20px;
+    height: 715px;
+    width: 100%;
+    background-image: url(../images/default_product.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container-auth-log{
+    position: relative;
+    top: 180px;
+    left: 650px;
+    justify-content: center;
+    width: 450px;
+    height: 300px;
+    background-color: rgba(15, 71, 226, 0.5);
+    border-radius: 10px;
+}
+
+.container-auth-log h2{
+    text-align: center;
+    color: aliceblue;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    padding-top: 10px;
+    background-color: rgb(16, 49, 194);
+    border-bottom: 2px solid aliceblue;
+}
+
+.container-auth-log .username{
+    position: relative;
+    color: aliceblue;
+    left: 60px;
+    padding: 5px;
+}
+
+.container-auth-log .username .label{
+    position: relative;
+    left: 15px;
+    height: 20px;
+    border-radius: 2px;
+}
+
+
+.container-auth-log .password{
+    position: relative;
+    color: aliceblue;
+    left: 65px;
+    padding-top: 20px;
+}
+
+.container-auth-log .password .label{
+    position: relative;
+    left: 19px;
+    height: 20px;
+    border-radius: 2px;
+}
+
+.container-auth-log button{
+    position: relative;
+    text-align: center;
+    left: 190px;
+    top: 40px;
+    padding: 10px;
+    font-size: large;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: larger;
+    color: rgba(15, 71, 226);
+    background-color: aliceblue;
+    border-radius: 5px;
+}
+
+.container-auth-log button:hover{
+    background-color: rgb(16, 49, 194);
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.container-auth-log .confirm{
+    position: relative;
+    top: 50px;
+    left: 100px;
+    color: aliceblue;
+}
+
+.container-auth-log .confirm a{
+    color: aliceblue;
+    text-decoration: none;
+    font-weight: bold;
+}
+.container-auth-log .confirm a:hover{
+    color: orange;
+}
+
+.support{
+    position: relative;
+    top: -25px;
+    left: 50px;
+    height: 10px;
+    width: 20%;
+    background-color: #666970;
+    color: rgb(202, 218, 231);
+}
+
+
+.footer{
+    position: relative;
+    top: -5px;
+    background-color: #666970 !important;
+    height: 5px;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
+/*CSSS FOR REGISTER PAGE*/
+
+.container-auth-reg{
+    position: relative;
+    top: 120px;
+    left: 630px;
+    justify-content: center;
+    width: 500px;
+    height: 580px;
+    background-color: rgba(15, 71, 226, 0.5);
+    border-radius: 10px;
+}
+
+.container-auth-reg h2{
+    text-align: center;
+    color: aliceblue;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    padding-top: 10px;
+    background-color: rgb(16, 49, 194);
+    border-bottom: 2px solid aliceblue;
+}
+
+.container-auth-reg .first-name{
+    position: relative;
+    color: aliceblue;
+    left: 60px;
+    padding: 5px;
+}
+
+.container-auth-reg .first-name .label{
+    position: relative;
+    left: 63px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.container-auth-reg .last-name{
+    position: relative;
+    color: aliceblue;
+    left: 60px;
+    padding: 5px;
+}
+
+.container-auth-reg .last-name .label{
+    position: relative;
+    left: 64px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.container-auth-reg .username{
+    position: relative;
+    color: aliceblue;
+    left: 65px;
+    padding-top: 5px;
+}
+
+.container-auth-reg .username .label{
+    position: relative;
+    left: 68px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.container-auth-reg .email{
+    position: relative;
+    color: aliceblue;
+    left: 60px;
+    padding: 5px;
+}
+
+.container-auth-reg .email .label{
+    position: relative;
+    left: 95px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+
+.container-auth-reg .password{
+    position: relative;
+    color: aliceblue;
+    left: 65px;
+    padding-top: 5px;
+}
+
+.container-auth-reg .password .label{
+    position: relative;
+    left: 72px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.container-auth-reg .confirm-password{
+    position: relative;
+    color: aliceblue;
+    left: 64px;
+    padding-top: 10px;
+}
+
+.container-auth-reg .confirm-password .label{
+    position: relative;
+    left: 15px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.container-auth-reg .location{
+    position: relative;
+    color: aliceblue;
+    left: 65px;
+    padding-top: 10px;
+}
+
+.container-auth-reg .location .label{
+    position: relative;
+    left: 75px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.container-auth-reg .role{
+    position: relative;
+    color: aliceblue;
+    left: 65px;
+    padding-top: 10px;
+}
+
+.container-auth-reg .role .label{
+    position: relative;
+    left: 65px;
+    height: 25px;
+    width: 170px;
+    border-radius: 5px;
+}
+
+.container-auth-reg .role .role-text{
+color: orange;
+}
+.container-auth-reg .gender{
+    position: relative;
+    color: aliceblue;
+    left: 60px;
+    padding: 5px;
+}
+
+.container-auth-reg .gender .label{
+    position: relative;
+    left: 85px;
+    width: 170px;
+    height: 25px;
+    border-radius: 5px;
+}
+.container-auth-reg .gender .gender-text{
+    color: orange;
+    }
+
+.container-auth-reg button{
+    position: relative;
+    text-align: center;
+    left: 210px;
+    top: 20px;
+    padding: 10px;
+    font-size: large;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: larger;
+    color: rgba(15, 71, 226);
+    background-color: aliceblue;
+    border-radius: 5px;
+}
+
+.container-auth-reg button:hover{
+    background-color: rgb(16, 49, 194);
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.container-auth-reg .confirm{
+    position: relative;
+    top: 30px;
+    left: 130px;
+    color: aliceblue;
+}
+
+.container-auth-reg .confirm a{
+    color: aliceblue;
+    text-decoration: none;
+    font-weight: bold;
+}
+.container-auth-reg .confirm a:hover{
+    color: orange;
+}

@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "auth_base.html" %}
 
 {% block content %}
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
-<div class="container mt-3">
+<div class="container-alert">
   {% for category, message in messages %}
   <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
     {{ message }}
@@ -15,22 +15,26 @@
 </div>
 {% endif %}
 {% endwith %}
-<div class="container mt-5">
+<div class="container-auth-log">
   <h2>Login</h2>
   <form method="POST" action="{{ url_for('auth.login') }}">
     {{ form.hidden_tag() }}
 
-    <div class="form-group">
+    <div class="username">
       <label for="username">Username</label>
-      {{ form.username(class="form-control", id="username") }}
+      {{ form.username(class="label", id="username") }}
     </div>
 
-    <div class="form-group">
+    <div class="password">
       <label for="password">Password</label>
-      {{ form.password(class="form-control", id="password") }}
+      {{ form.password(class="label", id="password") }}
     </div>
 
-    <button type="submit" class="btn btn-primary" id="loginButton" >Login</button>
+    <button type="submit" class="submit" id="loginButton" >Login</button>
+
+    <div class="confirm">
+      <p>Don't have an Account? <a href="{{ url_for('auth.register_user') }}">Register</a></p>
+    </div>
   </form>
 </div>
 {% endblock %}

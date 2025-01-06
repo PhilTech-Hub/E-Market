@@ -1,68 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> <!-- Link to your custom CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
+    <title>{{ current_user.first_name }} Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profiles.css') }}"> <!-- Link to your custom CSS -->
+
+    <!-- Bootstrap CSS -->
 </head>
+
 <body>
-    <div class="container mt-5">
+    <div class="container">
         <div class="card">
-            <div class="card-header text-center">
-                <h2>Edit Profile</h2>
+            <div class="card-header ">
+                <h2>Edit {{ current_user.first_name }} Profile</h2>
             </div>
-            <div class="card-body">
+            <div class="card-body-edit">
                 <!-- Form to edit user details -->
                 <form method="POST" action="{{ url_for('main.edit_profile') }}" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
 
                     <!-- Profile Image -->
-                    <div class="text-center mb-3">
-                        <img src="{{ url_for('static', filename='uploads/' + (current_user.profile_image if current_user.profile_image else 'default_profile.png')) }}"   
-                             alt="Profile Picture" 
-                             class="rounded-circle mb-3"
-                             style="width: 150px; height: 150px; object-fit: cover;">
-                        <div>
-                            <input type="file" name="profile_image" class="form-control-file">
-                            <small class="form-text text-muted">Upload a new profile picture</small>
+                    <div class="col-left">
+                        <div class="profile-image">
+                            <img src="{{ url_for('static', filename='uploads/' + (current_user.profile_image if current_user.profile_image else 'default_profile.png')) }}"
+                            alt="Profile Picture">
+                        </div>
+                        
+                        <div class="image-upload">
+                            <small class="upload-text">Upload a new profile picture</small>
+                            <input type="file" name="profile_image" class="upload-file">
                         </div>
                     </div>
+                    <div class="col-right">
+                        <h2>{{ current_user.first_name }} Details</h2>
+                        <!-- First Name Field -->
+                        <div class="form-group">
+                            <label for="first_name">First Name</label>
+                            <input type="text" class="first-name" id="first_name" name="first_name"
+                                value="{{ current_user.first_name }}">
+                        </div>
 
-                    <!-- Username Field -->
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" value="{{ current_user.username }}" required>
+                        <!-- Last Name Field -->
+                        <div class="form-group">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" class="last-name" id="last_name" name="last_name"
+                                value="{{ current_user.last_name }}">
+                        </div>
+                        <!-- Username Field -->
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="username" id="username" name="username"
+                                value="{{ current_user.username }}" required>
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="email" id="email" name="email"
+                                value="{{ current_user.email }}" required>
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="form-group">
+                            <label for="password">Old Password</label>
+                            <input type="password" class="old-password" id="password" name="password" value="{{ current_user.password }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">New Password</label>
+                            <input type="password" class="new-password" id="password" name="password">
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="update">Update Profile</button>
+                        <a href="{{ url_for('main.profile') }}" class="cancel">Cancel</a>
                     </div>
 
-                    <!-- Email Field -->
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{ current_user.email }}" required>
-                    </div>
 
-                    <!-- First Name Field -->
-                    <div class="form-group">
-                        <label for="first_name">First Name</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ current_user.first_name }}">
-                    </div>
 
-                    <!-- Last Name Field -->
-                    <div class="form-group">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ current_user.last_name }}">
-                    </div>
-
-                    <!-- Password Field -->
-                    <div class="form-group">
-                        <label for="password">New Password (optional)</label>
-                        <input type="password" class="form-control" id="password" name="password">
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn btn-success mt-3">Save Changes</button>
-                    <a href="{{ url_for('main.profile') }}" class="btn btn-secondary mt-3">Cancel</a>
                 </form>
             </div>
         </div>
@@ -72,4 +89,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

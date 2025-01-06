@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Product Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(0, 0, 0, 0.5);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .modal {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            height: 600px;
+            width: 100%;
+            padding: 20px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .product-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .product-header h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        .product .product-image{
+            position: relative;
+            top: -200px;
+            left: 500px;
+            width: 300px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="modal">
+        <button class="close-btn" onclick="window.location.href='{{url_for('main.user_dashboard')}}'">&times;</button>
+        <div class="product-header">
+            <h2> Product Details.</h2>
+        </div>
+
+        <div>
+            {% for product in current_user.seller_products %}
+            <div class="product">
+                <h3>Name: {{ product.name }}</h3>
+                <p><Strong>Description:</Strong> {{ product.description }}</p>
+                <p><strong>Price:</strong> {{ product.price }}</p>
+                <p><strong>Category:</strong> {{ product.category }}</p>
+                <p><strong>Location:</strong> {{ product.location }}</p>
+                <p><strong>Date Added: </strong><small>Added on: {{ product.date_added.strftime('%Y-%m-%d') }}</small></p>
+
+                <!-- Display the product image -->
+                <!-- Display the product image if it exists -->
+                {% if product.image_url %}
+                <img src="{{ url_for('static', filename='images/' + product.image_url) }}" alt="{{ product.name }}"
+                    class="product-image">
+                {% else %}
+                <img src="{{ url_for('static', filename='images/default_product.png') }}" alt="Default Product Image"
+                    class="product-image">
+                {% endif %}
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

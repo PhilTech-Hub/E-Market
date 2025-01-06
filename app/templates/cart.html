@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='buyer_styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Your Cart</h1>
+
+        {% if cart_items %}
+            <div class="cart-items">
+                <ul>
+                    {% for item in cart_items %}
+                        <li>
+                            <img src="{{ url_for('static', filename='uploads/' + (item.product.image or 'default_product.png')) }}" alt="{{ item.product.name }}">
+                            <h3>{{ item.product.name }}</h3>
+                            <p>Price: KES{{ item.product.price }}</p>
+                            <p>Quantity: {{ item.quantity }}</p>
+                            <a href="{{ url_for('main.remove_from_cart', cart_id=item.id) }}">Remove</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <a href="{{ url_for('main.checkout') }}">Proceed to Checkout</a>
+        {% else %}
+            <p>Your cart is empty.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

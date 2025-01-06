@@ -1,45 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> <!-- Link to your custom CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
+    <title>{{ user.first_name }} Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profiles.css') }}"> <!-- Link to your custom CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
 </head>
+
 <body>
-    <div class="container mt-5">
+    <div class="container">
         <div class="card">
-            <div class="card-header text-center">
+            <div class="card-header">
                 <h2>{{ user.first_name }} Profile</h2>
             </div>
-            <div>
-                Settings:
-            </div>
-            <div>
-                <a href="{{ url_for('main.user_dashboard') }}" class="btn btn-primary mt-3">Dashboard</a>
-            </div>
-            <div class="card-body text-center">
-                <!-- Profile Image -->
-                <img src="{{ url_for('static', filename='uploads/' + (current_user.profile_image if current_user.profile_image else 'default_profile.png')) }}" 
-                     alt="Profile Picture" 
-                     class="rounded-circle mb-3"
-                     style="width: 150px; height: 150px; object-fit: cover;">
+            <div class="card-body">
+                <!-- Top Section -->
+                <div class="row top-section">
+                    <!-- Profile Image -->
+                    <div class="col ">
+                        <div class="profile-image">
+                            <img src="{{ url_for('static', filename='uploads/' + (current_user.profile_image if current_user.profile_image else 'default_profile.png')) }}"
+                                alt="Profile Picture" width="150px">
 
-                <!-- User Details -->
-                <h3>{{ user.username }}</h3>
-                <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Role:</strong> {{ user.role }}</p>
+                            <div class="user-title">
+                                {% if current_user.is_male() %}
+                                <span>Mr. {{ user.first_name }}</span>
+                                {% elif current_user.is_female() %}
+                                <span>Mrs. {{ user.first_name }}</span>
+                                {% else %}
+                                <span>{{ user.first_name }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
 
-                <!-- Edit Profile Button -->
-                <a href="{{ url_for('main.edit_profile') }}" class="btn btn-primary mt-3">Edit Profile</a>
+
+                    </div>
+                    <!-- User Details -->
+                    <div class="col user-details">
+                        <h3>Personal Details</h3>
+                        <p><strong>First Name: </strong>{{ user.first_name }}</p>
+                        <p><strong>Last Name: </strong>{{ user.last_name }}</p>
+                        <p><strong>Username: </strong>{{ user.username }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>Location: </strong>{{ user.location }}</p>
+                        {% for product in current_user.seller_products %}
+                        <p><strong>Market: </strong>{{ product.location }}</p>
+                        {% endfor %}
+                        <p><strong>Role: </strong>{{ user.role }}</p>
+                        <p><strong>Gender:</strong> {{ user.gender }}</p>
+                    </div>
+                    <div class="col-key">
+                        <h3>KEY:</h3>
+                        <div class="col-key-details">
+                            <!-- Back to Market -->
+                            <div class="market">
+                                <a href="{{ url_for('main.home') }}"> E-Market </a>
+                            </div>
+                            <!-- Settings -->
+                            <div class="settings">
+                                <a href="{{ url_for('main.user_dashboard') }}">Settings</a>
+                            </div>
+                            <!-- Dashboard -->
+                            <div class="dashboard">
+                                <a href="{{ url_for('main.user_dashboard') }}">Dashboard</a>
+                            </div>
+                            <!-- Edit Profile -->
+                            <div class="edit">
+                                <a href="{{ url_for('main.edit_profile') }}">Edit Profile</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <hr>
+                <!-- Bottom Section -->
+                <div class="row bottom-section">
+                    <!-- Settings -->
+                    <div class="reviews">
+                        <h3>Reviews: </h3>
+                        <a href="#">Reviews</a>
+                    </div>
+                    <!-- Summary -->
+                    <div class="summary">
+                        <h3>Summary:</h3>
+                        <a href="{{ url_for('main.user_dashboard') }}">Summary</a>
+                    </div>
+
+                </div>
             </div>
-            
         </div>
     </div>
+
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

@@ -43,12 +43,7 @@
         <!-- <a href="#">Sales Reports</a>
          -->
         <a href="{{ url_for('main.home') }}">Home</a>
-        {% if current_user.is_seller() %}
         <a href="{{ url_for('main.add_product') }}"><button>Add Product</button></a>
-        {% else %}
-        <a href="{{ url_for('main.browse_products') }}"><button>Product List</button></a>
-
-        {% endif %}
 
 
         <!-- <a href="#">Product Management</a>
@@ -84,7 +79,7 @@
                 <!-- Product Management link visible to admins or users with 'manage_products' permission -->
                 {% if current_user.is_admin() or (not current_user.is_buyer() and
                 current_user.has_permission('manage_products')) %}
-                <a href="{{ url_for('main.user_dashboard') }}">Product Management</a>
+                <a href="#">Product Management</a>
                 {% endif %}
 
                 <!-- Orders link visible to admins or non-sellers with 'view_orders' permission -->
@@ -96,7 +91,7 @@
                 <!-- Sales Reports link visible to admins or users with 'view_sales_reports' permission -->
                 {% if current_user.is_admin() or (not current_user.is_buyer() and
                 current_user.has_permission('view_sales_reports')) %}
-                <a href="{{ url_for('main.seller_analytics') }}">Sales Reports</a>
+                <a href="#">Sales Reports</a>
                 {% endif %}
 
                 <!-- Product List link visible to admins or non-sellers with 'view_product_list' permission -->
@@ -156,24 +151,6 @@
         <span style="text-decoration: underline; font-weight: bold;">Admin Dashboard</span>
         {% else %}
         <h4>Pick an Item,</h4>
-        <div class="product-frame">
-            {% for product in products %}
-            <div class="product-card">
-                <!-- Display the product image -->
-                <!-- Display the product image if it exists -->
-                {% if product.image_url %}
-                <img src="{{ url_for('static', filename='images/' + product.image_url) }}" alt="{{ product.name }}"
-                    class="product-image">
-                {% else %}
-                <img src="{{ url_for('static', filename='images/default_product.png') }}" alt="Default Product Image"
-                    class="product-image">
-                {% endif %}
-
-                <h3>Product: {{ product.name }}</h3>
-                <a href="{{ url_for('main.seller_product_details') }}"><button class="details">Details</button></a>
-            </div>
-            {% endfor %}
-        </div>
         {% endif %}
 
         <!-- JavaScript for toggling sidebar -->

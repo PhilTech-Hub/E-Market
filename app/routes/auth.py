@@ -101,7 +101,7 @@ def login():
     return render_template("login.html", form=form)
 
 
-# Seller Logout Route
+# User Logout Route
 @auth.route("/logout")
 @login_required
 def logout():

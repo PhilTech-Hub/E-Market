@@ -7,6 +7,9 @@
     position: fixed;
     width: 100%;
     top: 0%;
+    display: flex;
+    flex-direction: column
+    ;
 }
 
 /* Optional: Adjust the navbar color scheme for text and icons */
@@ -172,6 +175,10 @@ body {
     overflow: hidden;
     position: relative;
     top: 700px;
+    height: fit-content;
+    padding: 3%;
+    background-color: rgba(15, 71, 226, 0.5) !important;
+    color: #f3f2f0 !important;
 
 }
 
@@ -247,4 +254,11 @@ body {
 
 .main-height {
     height: 100vh;
+}
+
+
+.footer{
+    position: relative;
+    top: 500px;
+    background-color: #666970 !important;
 }

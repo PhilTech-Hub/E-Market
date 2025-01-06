@@ -5,6 +5,8 @@ from flask import Blueprint  # noqa: F401
 
 # app/routes/auth.py
 __all__ = ['auth']  # Optional, to specify exports explicitly
+__all__ = ['main']  # Optional, to specify exports explicitly
+
 
 # Initialize Blueprint for the app
 def register_routes(app):

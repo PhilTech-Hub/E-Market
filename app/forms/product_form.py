@@ -10,4 +10,6 @@ class ProductForm(FlaskForm):
     location = StringField('Location', validators=[DataRequired(), Length(max=100)])
     image = FileField('Product Image')
     submit = SubmitField('Add Product')
-       
+
+class CartForm(FlaskForm):
+    submit = SubmitField('Submit')

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flask E-Market</title>
+  <!-- Add Font Awesome CDN for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  
+  <!-- Styles CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/auth_styles.css') }}">
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <!-- Logo and Home Link -->
+      <a  href="{{ url_for('main.home') }}"> <img
+          src="{{ url_for('static', filename='images/Logo1.png') }}" alt="E-Market Logo" style="height: 40px; "> </a>
+      <a class="navbar-brand" href="{{ url_for('main.home') }}">E-Market</a>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <div class="main-container">
+    {% block content %}
+    {% endblock %}
+  </div>
+<div class="support">
+  <p>For tech support Call Us on: +254741103341, <br>Or Email us on: vixtechnologiz@gmail.com</p>
+  
+</div>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 E-Market, Virtual Market Enterprise. All Rights Reserved. Developed by Vix Inc.</p>
+  </footer>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Your custom script -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+  <script>
+    console.log("Script loaded.");
+  </script>
+</body>
+
+</html>

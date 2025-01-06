@@ -1,57 +1,61 @@
-{% extends "base.html" %}
+{% extends "auth_base.html" %}
 
 {% block content %}
-  <div class="container mt-5">
+  <div class="container-auth-reg">
     <h2>Register</h2>
     <form method="POST" action="{{ url_for('auth.register_user') }}">
       {{ form.hidden_tag() }}
       
-      <div class="form-group">
-        <label for="username">First Name</label>
-        {{ form.first_name(class="form-control", id="first_name") }}
+      <div class="first-name">
+        <label for="first_name">First Name :</label>
+        {{ form.first_name(class="label", id="first_name") }}
       </div>
-      <div class="form-group">
-        <label for="username">Last Name</label>
-        {{ form.last_name(class="form-control", id="last_name") }}
+      <div class="last-name">
+        <label for="last_name">Last Name :</label>
+        {{ form.last_name(class="label", id="last_name") }}
       </div>
-      <div class="form-group">
-        <label for="username">Username</label>
-        {{ form.username(class="form-control", id="username") }}
-      </div>
-      
-      <div class="form-group">
-        <label for="email">Email</label>
-        {{ form.email(class="form-control", id="email") }}
+      <div class="username">
+        <label for="username">Username :</label>
+        {{ form.username(class="label", id="username") }}
       </div>
       
-      <div class="form-group">
-        <label for="password">Password</label>
-        {{ form.password(class="form-control", id="password") }}
+      <div class="email">
+        <label for="email">Email :</label>
+        {{ form.email(class="label", id="email") }}
       </div>
       
-      <div class="form-group">
-        <label for="confirm_password">Confirm Password</label>
-        {{ form.confirm_password(class="form-control", id="confirm_password") }}
+      <div class="password">
+        <label for="password">Password :</label>
+        {{ form.password(class="label", id="password") }}
       </div>
       
-      <div class="form-group">
-        <label for="location">Location</label>
-        {{ form.location(class="form-control", id="location") }}
+      <div class="confirm-password">
+        <label for="confirm_password">Confirm Password :</label>
+        {{ form.confirm_password(class="label", id="confirm_password") }}
       </div>
       
-      <div class="form-group">
+      <div class="location">
+        <label for="location">Location :</label>
+        {{ form.location(class="label", id="location") }}
+      </div>
+      
+      <div class="role">
         <label for="role">Register as:</label>
-        {{ form.role(class="form-control", id="role") }}
-        <small class="form-text text-muted">Choose whether to register as a Buyer, Seller, or Admin.</small>
+        {{ form.role(class="label", id="role") }}
+        <br><small class="role-text">Choose whether to register as a Buyer, or Seller.</small>
       </div>
 
-      <div class="form-group">
-        <label for="role">Gender:</label>
-        {{ form.gender(class="form-control", id="gender") }}
-        <small class="form-text text-muted">Choose your Gender</small>.</small>
+      <div class="gender">
+        <label for="gender">Gender :</label>
+        {{ form.gender(class="label", id="gender") }}
+        <br><small class="gender-text">Choose your Gender</small>
       </div>
       
       <button type="submit" class="btn btn-primary">Register</button>
+
+      <div class="confirm">
+        <p>Already have an Account? <a href="{{ url_for('auth.login') }}">Login</a></p>
+      </div>
     </form>
   </div>
 {% endblock %}

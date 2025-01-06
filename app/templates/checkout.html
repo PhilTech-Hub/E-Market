@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+</head>
+<body>
+    <h1>Checkout</h1>
+    <h2>Cart Summary</h2>
+    <ul>
+        {% for item in cart_items %}
+        <li>{{ item.product.name }} - {{ item.quantity }} x KES{{ item.product.price }}</li>
+        {% endfor %}
+    </ul>
+    <h3>Total: KES{{ total_price }}</h3>
+
+    <form action="{{ url_for('main.checkout') }}" method="GET">
+        <button type="submit">Checkout with PayPal</button>
+    </form>
+</body>
+</html>
