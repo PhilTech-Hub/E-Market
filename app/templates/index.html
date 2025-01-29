@@ -2,39 +2,14 @@
 {% block content %}
 
 
-<!-- Search Bar -->
-<div class="cta search-bar">
-    <form method="GET" action="/search"> <!-- Replace "/search" with your actual route -->
-        <input type="text" name="q" placeholder="Search for products or sellers..." value="{{ request.args.get('q', '') }}">
-        <button type="submit">Search</button>
-    </form>
-</div>
 
-<!-- Call to Action and Background -->
+<!-- Call to Action -->
 <div class="cta fade-on-scroll">
-    <h1  id="cta-heading"></h1>
-    <p id="cta-subheading"></p>
-    <a href="{{ url_for('main.browse_products') }}">Start Shopping</a>
+    <h2 id="cta-heading">Discover Your Next Favorite Product<br/><br/></h2>
+    <p id="cta-subheading">Shop a wide variety of items from trusted sellers today.<br/></p>
+    <a href="{{ url_for('main.browse_products') }}" class="btn-primary">Start Shopping</a>
 </div>
 
-
-<!-- Search Results Section -->
-{% if search_results %}
-<div id="search-results">
-    <h2>Search Results:</h2>
-    <div class="product-grid">
-        {% for product in search_results %}
-        <div class="product-card">
-            <img src="{{ url_for('static', filename='uploads/' + (product.image or 'default_product.png')) }}" alt="{{ product.name }}">
-            <h3>{{ product.name }}</h3>
-            <p>{{ product.description }}</p>
-            <p>Price: KES{{ product.price }}</p>
-            <p>Seller: {{ product.seller.first_name }} {{ product.seller.last_name }}</p>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-{% endif %}
 
 <!-- Testimonials Section -->
 <div class="testimonials fade-on-scroll">
@@ -52,16 +27,17 @@
             <span class="author">- Mary Johnson</span>
         </div>
     </div>
-    <div class="slider-dots">
-        <span class="dot active" onclick="changeSlide(0)"></span>
-        <span class="dot" onclick="changeSlide(1)"></span>
-        <span class="dot" onclick="changeSlide(2)"></span>
-    </div>
-    <div class="slider-arrows">
-        <span class="arrow" onclick="prevSlide()">&#8249;</span>
-        <span class="arrow" onclick="nextSlide()">&#8250;</span>
+    <div class="slider-controls">
+        <div class="slider-dots">
+            <span class="dot active" onclick="changeSlide(0)"></span>
+            <span class="dot" onclick="changeSlide(1)"></span>
+            <span class="dot" onclick="changeSlide(2)"></span>
+        </div>
+        <div class="slider-arrows">
+            <span class="arrow" onclick="prevSlide()">&#8249;</span>
+            <span class="arrow" onclick="nextSlide()">&#8250;</span>
+        </div>
     </div>
 </div>
-
 
 {% endblock %}

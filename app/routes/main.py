@@ -3,10 +3,11 @@ from flask import Blueprint, render_template, redirect, request, flash, url_for
 from app.paypal_config import paypalrestsdk
 from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
-from app.models import Cart, Product, Sales
+from app.models import Cart, Product, Sales, User
 from app.forms import ProductForm, CartForm, EditProfileForm
 from flask import current_app
 from app import db
+
 
 main = Blueprint("main", __name__)
 
@@ -176,13 +177,15 @@ def search():
 
     if query:
         # Search for products or sellers by name (case-insensitive)
-        search_results = Product.query.filter(
+        search_results = Product.query.join(User).filter(
             (Product.name.ilike(f"%{query}%")) |
-            (Product.seller.username.ilike(f"%{query}%"))
+            (User.username.ilike(f"%{query}%")) |
+            (User.first_name.ilike(f"%{query}%")) |
+            (User.last_name.ilike(f"%{query}%"))
         ).all()
-        
 
     return render_template('index.html', search_results=search_results)
+
 
 @main.route('/browse_products' , methods=['GET'])
 def browse_products():

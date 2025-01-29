@@ -1,30 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Products</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='buyer_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/browse_products.css') }}">
 </head>
+
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="{{ url_for('main.home') }}" class="nav-link">Home</a>
+
+        </div>
+        <div class="nav-right">
+            {% if current_user.is_authenticated %}
+            <span class="username"><a href="{{ url_for('main.profile') }}">{{ current_user.first_name }}</a></span>
+
+            <a href="{{ url_for('auth.logout') }}" class="nav-link">Logout</a>
+            {% endif %}
+        </div>
+    </nav>
+
     <div class="container">
         <h1>Browse Products</h1>
 
         <!-- Search and Filter Section -->
         <div class="filter-bar">
             <form method="GET" action="{{ url_for('main.browse_products') }}">
-                <input type="text" name="search" placeholder="Search products..." value="{{ request.args.get('search', '') }}">
+                <input type="text" name="search" placeholder="Search products..."
+                    value="{{ request.args.get('search', '') }}">
                 <select name="category">
                     <option value="">All Categories</option>
-                    <!-- Add categories dynamically -->
                     {% for category in categories %}
-                        <option value="{{ category }}" {% if request.args.get('category') == category %}selected{% endif %}>{{ category }}</option>
+                    <option value="{{ category }}" {% if request.args.get('category')==category %}selected{% endif %}>{{
+                        category }}</option>
                     {% endfor %}
                 </select>
                 <select name="sort_by">
                     <option value="">Sort By</option>
-                    <option value="price_asc" {% if request.args.get('sort_by') == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
-                    <option value="price_desc" {% if request.args.get('sort_by') == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+                    <option value="price_asc" {% if request.args.get('sort_by')=='price_asc' %}selected{% endif %}>
+                        Price: Low to High</option>
+                    <option value="price_desc" {% if request.args.get('sort_by')=='price_desc' %}selected{% endif %}>
+                        Price: High to Low</option>
                 </select>
                 <button type="submit">Apply</button>
             </form>
@@ -34,22 +54,23 @@
         <div class="product-grid">
             {% for product in products %}
             <div class="product-card">
-                <img src="{{ url_for('static', filename='uploads/' + (product.image or 'default_product.png')) }}" alt="{{ product.name }}">
+                <img src="{{ url_for('static', filename='uploads/' + (product.image or 'default_product.png')) }}"
+                    alt="{{ product.name }}">
 
                 <h3>Name: {{ product.name }}</h3>
                 <p>Price: KES{{ product.price }} </p>
                 <p>Category: {{ product.category }}</p>
                 <div class="actions">
-                    <form action="{{ url_for('main.add_to_cart', product_id=product.id) }}" method="POST">
+                    <form action="{{ url_for('main.add_to_cart', product_id=product.id) }} " class="btn-cart" method="POST">
                         {{ form.hidden_tag() }}
-                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        <button type="submit" >Add to Cart</button>
                     </form>
-                    
-                    <form method="POST" action="{{ url_for('main.add_to_wishlist', product_id=product.id) }}">
+
+                    <form method="POST" action="{{ url_for('main.add_to_wishlist', product_id=product.id) }}" class="btn-wishlist">
                         {{ form.hidden_tag() }}
-                        <button type="submit" class="btn btn-primary">Add to WishList</button>
+                        <button type="submit" >Add to WishList</button>
                     </form>
-                    
+
                 </div>
                 <a href="{{ url_for('main.product_details', product_id=product.id) }}">View Details</a>
             </div>
@@ -61,13 +82,14 @@
         <!-- Pagination -->
         <div class="pagination">
             {% if products.has_prev %}
-                <a href="{{ url_for('main.browse_products', page=products.prev_num, **request.args) }}">&laquo; Previous</a>
+            <a href="{{ url_for('main.browse_products', page=products.prev_num, **request.args) }}">&laquo; Previous</a>
             {% endif %}
             <span>Page {{ products.page }} of {{ products.pages }}</span>
             {% if products.has_next %}
-                <a href="{{ url_for('main.browse_products', page=products.next_num, **request.args) }}">Next &raquo;</a>
+            <a href="{{ url_for('main.browse_products', page=products.next_num, **request.args) }}">Next &raquo;</a>
             {% endif %}
         </div>
     </div>
 </body>
+
 </html>

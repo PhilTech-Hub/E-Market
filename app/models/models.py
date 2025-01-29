@@ -26,7 +26,7 @@ class Product(db.Model):
     seller = db.relationship("User", backref="products", lazy="joined")
 
     def __repr__(self):
-        return f"<Product {self.name}>"
+        return f"<Product {self.name} - Seller {self.seller.username}>"
 
     @staticmethod
     def save_image(form_picture):
@@ -34,6 +34,7 @@ class Product(db.Model):
         picture_path = os.path.join("static/images", picture_fn)
         form_picture.save(picture_path)
         return picture_fn
+
 
 # Base model for Add to Cart
 class Cart(db.Model):
@@ -47,12 +48,13 @@ class Cart(db.Model):
     user = db.relationship('User', backref='cart_items', lazy=True)
     product = db.relationship('Product', backref='cart_items', lazy=True)
 
+
 # Base model for all user types (buyer, seller, admin)
 class User(db.Model, UserMixin):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(50), nullable=False)
-    last_name = db.Column(db.String(50), nullable=False)
+    first_name = db.Column(db.String(80), nullable=False)
+    last_name = db.Column(db.String(80), nullable=False)
     username = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
@@ -65,69 +67,26 @@ class User(db.Model, UserMixin):
         db.String(200), nullable=True, default="default_profile.png"
     )  # Default profile image
 
-    # Relationships for sellers
-    sales_made = db.relationship(
-        "Sales",
-        foreign_keys="[Sales.seller_id]",
-        backref="seller",
-        lazy=True,
-    )
-
-    # Relationships for buyers
-    sales = db.relationship(
-        "Sales",
-        foreign_keys="[Sales.buyer_id]",
-        backref="buyer",
-        lazy=True,
-    )
-
     def __repr__(self):
-        return f"<User {self.username} {self.first_name} {self.last_name}>"
+        return f"<User {self.username} - Role {self.role}>"
 
     def set_password(self, password):
         from werkzeug.security import generate_password_hash
-
         self.password = generate_password_hash(password)
 
     def check_password(self, password):
         from werkzeug.security import check_password_hash
-
         return check_password_hash(self.password, password)
 
-    # Check roles
+    # Role checks
     def is_seller(self):
-        return self.role == "seller"
+        return self.role.lower() == "seller"
 
     def is_buyer(self):
-        return self.role == "buyer"
+        return self.role.lower() == "buyer"
 
     def is_admin(self):
-        return self.role == "admin"
-
-    # Permissions logic
-    def has_permission(self, permission_name):
-        if self.is_admin():
-            return True  # Admins have access to all permissions
-        # Define permission logic for sellers and buyers
-        permissions = {
-            "view_settings": self.is_seller() or self.is_buyer(),
-            "view_orders": self.is_buyer(),  # Only buyers
-            "view_product_list": self.is_buyer(),  # Only buyers
-            "view_profile": True,  # All authenticated users
-            "manage_products": self.is_seller(),  # Only sellers
-            "view_sales_reports": self.is_seller(),  # Only sellers
-        }
-        return permissions.get(permission_name, False)
-
-    # Gender checks
-    def is_male(self):
-        return self.gender == "male"
-
-    def is_female(self):
-        return self.gender == "female"
-
-    def is_rather_not_say(self):
-        return self.gender == "rather_not_say"
+        return self.role.lower() == "admin"
 
 
 # Model for Sales (tracks purchases)
